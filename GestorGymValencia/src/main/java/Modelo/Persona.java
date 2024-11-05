@@ -1,11 +1,15 @@
-package ggv.gestorgymvalencia;
+package Modelo;
 
-public class Cliente {
+public class Persona {
     private String nombres;
     private String apellidos;
-    private int DNI;
-
-    public Cliente(){} // Constructor vacio
+    private String DNI;
+    
+    Persona(String nombres, String apellidos, String DNI){
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.DNI = DNI;
+    }
 
     public String getNombres() {
         return nombres;
@@ -23,11 +27,11 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public int getDNI() {
+    public String getDNI() {
         return DNI;
     }
 
-    public void setDNI(int DNI) {
+    public void setDNI(String DNI) {
         this.DNI = DNI;
-}
+    }   
 }
