@@ -33,3 +33,4 @@
 75850790,Luis Alejandra,Gonzalez Rodriguez,25 oct 2023,22 abr 2024,Semestral
 74839698,Diego Steven Martin,Espinoza Picón,05 nov 2024,05 nov 2025,Anual
 75280457,SebastianJoaquin,Chicata Serrato,01 nov 2024,01 may 2025,Semestral
+14141414,Prueba1,nose,05 nov 2024,05 feb 2025,Trimestral

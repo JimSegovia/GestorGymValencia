@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JDialog;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.event.DocumentEvent;
@@ -32,6 +35,8 @@ public class UsuariosVista extends javax.swing.JPanel {
         cargarClientesDesdeArchivo();
 
         BotonAñadirUsuarios.setContentAreaFilled(false);
+        BotonRenovarUsuarios.setContentAreaFilled(false);
+        
         Buscador.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -48,6 +53,8 @@ public class UsuariosVista extends javax.swing.JPanel {
                 filtrarClientes();
             }
         });
+        
+        
     }
 
     
@@ -67,6 +74,7 @@ public class UsuariosVista extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaClientes = new javax.swing.JTable();
+        BotonRenovarUsuarios = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1140, 640));
 
@@ -80,6 +88,11 @@ public class UsuariosVista extends javax.swing.JPanel {
         BotonAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Asistance.png"))); // NOI18N
         BotonAsistencia.setText("Asistencia");
         BotonAsistencia.setFocusPainted(false);
+        BotonAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAsistenciaActionPerformed(evt);
+            }
+        });
 
         BotonUsuarios.setBackground(new java.awt.Color(41, 56, 70));
         BotonUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -232,6 +245,14 @@ public class UsuariosVista extends javax.swing.JPanel {
             TablaClientes.getColumnModel().getColumn(6).setResizable(false);
         }
 
+        BotonRenovarUsuarios.setText("RENOVAR USUARIOS");
+        BotonRenovarUsuarios.setFocusPainted(false);
+        BotonRenovarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonRenovarUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,13 +266,15 @@ public class UsuariosVista extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(BotonAñadirUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BotonRenovarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
+                                .addComponent(Buscador))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE))
                         .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
@@ -264,7 +287,8 @@ public class UsuariosVista extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotonAñadirUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(BotonRenovarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -316,6 +340,7 @@ public class UsuariosVista extends javax.swing.JPanel {
     }
     
     TablaClientes.setRowHeight(25);
+    TablaClientes.getColumnModel().getColumn(6).setCellRenderer(new EstadoCellRenderer());
 }
 
     private void filtrarClientes() {
@@ -347,6 +372,27 @@ public class UsuariosVista extends javax.swing.JPanel {
         }
     }
     
+        private class EstadoCellRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                       boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if ("Activo".equals(value)) {
+                c.setBackground(new Color(189, 231, 189));
+                c.setForeground(Color.BLACK);
+            } else if ("Inactivo".equals(value)) {
+                c.setBackground(new Color(255, 182, 179));
+                c.setForeground(Color.BLACK);
+            } else {
+                c.setBackground(table.getBackground());
+                c.setForeground(table.getForeground());
+            }
+
+            return c;
+        }
+    }
+    
     private void BotonAñadirUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAñadirUsuariosActionPerformed
     JDialog dialog = new JDialog();
     dialog.setTitle("Añadir Usuario");
@@ -370,11 +416,35 @@ public class UsuariosVista extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscadorActionPerformed
 
+    private void BotonRenovarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRenovarUsuariosActionPerformed
+    JDialog dialog = new JDialog();
+    dialog.setTitle("Renovar Usuario");
+    dialog.setModal(true);
+    dialog.setSize(500, 400);
+    dialog.setResizable(false);
+    dialog.setLocationRelativeTo(this);
+
+    // Pasa la referencia del diálogo al constructor de AñadirUsuariosMenu
+    RenovarUsuariosMenu renovarUsuariosMenu = new RenovarUsuariosMenu(dialog);
+    dialog.setContentPane(renovarUsuariosMenu);
+    
+    dialog.setVisible(true);
+    
+    if (renovarUsuariosMenu.seRenovoUsuario()) {
+        cargarClientesDesdeArchivo();
+    }
+    }//GEN-LAST:event_BotonRenovarUsuariosActionPerformed
+
+    private void BotonAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAsistenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonAsistenciaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton BotonAsistencia;
     public javax.swing.JButton BotonAñadirUsuarios;
     public javax.swing.JButton BotonInicio;
+    public javax.swing.JButton BotonRenovarUsuarios;
     public javax.swing.JButton BotonTrabajadores;
     public javax.swing.JButton BotonUsuarios;
     protected javax.swing.JTextField Buscador;

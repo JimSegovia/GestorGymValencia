@@ -39,6 +39,36 @@ public class ListaClientes {
         guardarClientesEnArchivo(); // Guardar en archivo cada vez que se agrega un cliente
     }
 
+    public Cliente buscarPorDNI(String dni) {
+        Nodo puntero = cabeza;
+        while (puntero != null) {
+            Cliente cliente = puntero.cliente;
+            if (cliente.getDNI().equals(dni)) {
+                return cliente; // Devuelve el cliente si encuentra el DNI
+            }
+            puntero = puntero.siguiente;
+        }
+        return null; // Devuelve null si no encuentra el DNI
+    }
+
+    public boolean actualizarCliente(String dni, Date nuevaFechaInicio, Date nuevaFechaFin, String nuevoTipoMembresia) {
+        Nodo puntero = cabeza;
+        while (puntero != null) {
+            Cliente cliente = puntero.cliente;
+            if (cliente.getDNI().equals(dni)) {
+                // Actualizar los datos del cliente
+                cliente.setInicioMembresia(nuevaFechaInicio);
+                cliente.setFinMembresia(nuevaFechaFin);
+                cliente.setTipoMembresia(nuevoTipoMembresia);
+                guardarClientesEnArchivo(); // Guardar los cambios en el archivo
+                return true;
+            }
+            puntero = puntero.siguiente;
+        }
+        return false; // Devuelve false si no encontró el cliente
+    }
+    
+    
     public void imprimirClientes() {
         Nodo puntero = cabeza;
         while (puntero != null) {
