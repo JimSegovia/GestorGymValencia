@@ -6,10 +6,8 @@ package Vista;
 
 import Modelo.ListaClientes;
 import Modelo.Cliente;    
-
 import javax.swing.JDialog;
 import java.util.Locale;
-
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
@@ -19,13 +17,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-/**
- *
- * @author JimXL
- */
+
 public class RenovarUsuariosMenu extends javax.swing.JPanel {
 
-    private final JDialog dialog; // Variable para almacenar la referencia al diálogo
+    private final JDialog dialog; 
     private ListaClientes listaClientes;
     private boolean usuarioRenovado = false;
 
@@ -33,8 +28,6 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
         return usuarioRenovado;
 }
 
- 
-    // Modificar el constructor para recibir el JDialog contenedor
     public RenovarUsuariosMenu(JDialog dialog) {
 
         this.dialog = dialog;
@@ -43,51 +36,21 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
         jDateChooser1.setLocale(Locale.of("es", "ES"));
         addListeners();
 
-    
         jDateChooser1 = new JDateChooser();
-        
-        // Agregar los componentes al panel
+
         add(jDateChooser1);
         }
 
-
     private void addListeners() {
-        // Listener para cuando cambia el tipo de membresía
+   
         TipoDeMembersia.addActionListener(e -> updateEndDate());
-        
-        /*TipoDeMembersia.addActionListener(e -> {
-            System.out.println("Tipo de membresía cambiado: " + TipoDeMembersia.getSelectedItem());
-            updateEndDate();
-        });*/
-
-        
-        /*jDateChooser1.addPropertyChangeListener("date", evt -> {
-    Date selectedDate = (Date) evt.getNewValue();
-    if (selectedDate != null) {
-        // Forzar el ajuste de la fecha
-        jDateChooser1.setDate(selectedDate);
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = sdf.format(selectedDate);
-        System.out.println("Fecha seleccionada en formato yyyy-MM-dd: " + formattedDate);
-
-        // Actualiza el campo "Fin de membresía"
-        FinMembersía.setText(formattedDate);
-    } else {
-        System.out.println("La fecha seleccionada es null.");
-    }
-    updateEndDate();
-    }
-        );*/
-        
-    jDateChooser1.addPropertyChangeListener("date", evt -> {
+        jDateChooser1.addPropertyChangeListener("date", evt -> {
             Date selectedDate = (Date) evt.getNewValue();
             if (selectedDate != null) {
-                jDateChooser1.setDate(selectedDate); // Forzar el ajuste de la fecha
+                jDateChooser1.setDate(selectedDate); 
                 updateEndDate();
             }
         }); 
-    
         escribirDNI.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -95,47 +58,39 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
             }
         });
     
-    Renovar.addActionListener(e -> registrarCliente());
+    Renovar.addActionListener(e -> renovarCliente());
  
     }
     
     private void buscarClientePorDNI() {
         String dni = escribirDNI.getText().trim();
-        if (dni.length() == 8 && dni.matches("\\d+")) { // Verificar que el DNI tiene 8 dígitos
+        if (dni.length() == 8 && dni.matches("\\d+")) {
             Cliente cliente = listaClientes.buscarPorDNI(dni);
 
             if (cliente != null) {
-                // Mostrar los datos del cliente en los campos correspondientes
                 NombreYApellido.setText(cliente.getNombres() + " " + cliente.getApellidos());
-
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
                 FinUltimaMembersía.setText(sdf.format(cliente.getFinMembresia()));
 
-                // Verificar el estado de la membresía
                 Date fechaActual = new Date();
                 if (cliente.getFinMembresia().after(fechaActual)) {
                     EstadoMembersía.setText("Activo");
-                    EstadoMembersía.setForeground(new Color(0, 128, 0)); // Verde para "Activo"
-                    
-                    // Desactivar el botón de renovación y los campos de selección de membresía
+                    EstadoMembersía.setForeground(new Color(0, 128, 0));
                     Renovar.setEnabled(false);
                     jDateChooser1.setEnabled(false);
                     TipoDeMembersia.setEnabled(false);
                 } else {
                     EstadoMembersía.setText("Inactivo");
-                    EstadoMembersía.setForeground(Color.RED); // Rojo para "Inactivo"
-
-                    // Activar el botón de renovación y los campos de selección de membresía
+                    EstadoMembersía.setForeground(Color.RED);
                     Renovar.setEnabled(true);
                     jDateChooser1.setEnabled(true);
                     TipoDeMembersia.setEnabled(true);
                 }
             } else {
-                // Si el cliente no se encuentra, limpiar los campos
                 NombreYApellido.setText("----");
                 FinUltimaMembersía.setText("----");
                 EstadoMembersía.setText("----");
-                Renovar.setEnabled(false); // Desactivar renovación si no se encuentra el cliente
+                Renovar.setEnabled(false); 
                 JOptionPane.showMessageDialog(this, "Cliente no encontrado. Verifique el DNI.", "Cliente no encontrado", JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -146,43 +101,36 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
         if (startDate != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(startDate);
-
-            // Obtener el tipo de membresía seleccionado
             String membershipType = (String) TipoDeMembersia.getSelectedItem();
             switch (membershipType) {
                 case "Mensual":
-                    calendar.add(Calendar.MONTH, 1); // Añade 1 mes
+                    calendar.add(Calendar.MONTH, 1); 
                     break;
                 case "Trimestral":
-                    calendar.add(Calendar.MONTH, 3); // Añade 3 meses
+                    calendar.add(Calendar.MONTH, 3); 
                     break;
                 case "Semestral":
-                    calendar.add(Calendar.MONTH, 6); // Añade 6 meses
+                    calendar.add(Calendar.MONTH, 6); 
                     break;
                 case "Anual":
-                    calendar.add(Calendar.YEAR, 1); // Añade 1 año
+                    calendar.add(Calendar.YEAR, 1); 
                     break;
             }
-
-            // Formatea la fecha de fin y la muestra en el campo FinMembersía
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
         FechaFinal.setText(sdf.format(calendar.getTime()));
         }
     }
     
-   private void registrarCliente() {
-    // Obtener datos del formulario
+   private void renovarCliente() {
     String dni = escribirDNI.getText();
-    if (!dni.matches("\\d{8}")) { // Verifica si el DNI contiene exactamente 8 dígitos
+    if (!dni.matches("\\d{8}")) { 
         JOptionPane.showMessageDialog(this, "El DNI debe contener exactamente 8 números.", "DNI Inválido", JOptionPane.ERROR_MESSAGE);
-        escribirDNI.setText(""); // Limpiar el campo de DNI
-        return; // Detener la ejecución si el DNI es inválido
+        escribirDNI.setText("");
+        return;
     }
-
     Date inicioMembresia = jDateChooser1.getDate();
     String tipoMembresia = (String) TipoDeMembersia.getSelectedItem();
 
-    // Obtener la fecha de fin de membresía desde el JLabel
     SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
     Date finMembresia = null;
     try {
@@ -191,7 +139,6 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
         System.out.println("Error al parsear la fecha de fin: " + ex.getMessage());
     }
 
-    // Actualizar la membresía del cliente existente
     boolean actualizado = listaClientes.actualizarCliente(dni, inicioMembresia, finMembresia, tipoMembresia);
     
     if (actualizado) {
@@ -201,24 +148,13 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "La membresía se renovó correctamente", "Se Renovó correctamente", JOptionPane.INFORMATION_MESSAGE);
     } else {
         JOptionPane.showMessageDialog(this, "Cliente no encontrado. No se pudo renovar la membresía.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    
+    } 
 }
-
 
     private void imprimirListaClientes() {
         System.out.println("Lista de Clientes:");
-        listaClientes.imprimirClientes(); // Método en la clase ListaClientes que imprime todos los clientes
+        listaClientes.imprimirClientes(); 
     }
-    
-    
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -411,8 +347,8 @@ public class RenovarUsuariosMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_escribirDNIActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-    if (dialog != null) { // Verifica que el diálogo no sea nulo
-        dialog.dispose(); // Cierra el diálogo
+    if (dialog != null) { 
+        dialog.dispose();
     }
     }//GEN-LAST:event_cancelarActionPerformed
 

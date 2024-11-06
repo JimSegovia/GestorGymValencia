@@ -5,7 +5,7 @@ import java.util.Date;
 public class Cliente extends Persona {
     private Date inicioMembresia;
     private Date finMembresia;
-    private String tipoMembresia; // Nuevo atributo para el tipo de membresía
+    private String tipoMembresia;
     
     public Cliente(String DNI, String nombres, String apellidos, Date inicioMembresia, Date finMembresia, String tipoMembresia) {
         super(DNI, nombres, apellidos);

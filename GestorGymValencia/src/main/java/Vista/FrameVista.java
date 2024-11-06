@@ -14,15 +14,11 @@ public class FrameVista extends JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Images/GGV.png")).getImage());
         setTitle("Gestión Gym Valencia");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        // Establece un tamaño predefinido de 1140x640 píxeles
         setPreferredSize(new Dimension(1140, 640));
         setSize(1140, 640);
-        setResizable(false); // Evita que el usuario redimensione la ventana
-
+        setResizable(false); 
         pnlContenido = new JPanel();
-
         setContentPane(pnlContenido);
-        pack(); // Ajusta la ventana al tamaño preferido
+        pack();
     }
 }

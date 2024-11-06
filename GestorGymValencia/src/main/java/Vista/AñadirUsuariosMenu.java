@@ -16,20 +16,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-/**
- *
- * @author JimXL
- */
+
 public class AñadirUsuariosMenu extends javax.swing.JPanel {
 
-    private final JDialog dialog; // Variable para almacenar la referencia al diálogo
+    private final JDialog dialog; 
     private ListaClientes listaClientes;
     private boolean usuarioAgregado = false;
 
     public boolean seAgregoNuevoUsuario() {
         return usuarioAgregado;
 }
-    // Modificar el constructor para recibir el JDialog contenedor
+
     public AñadirUsuariosMenu(JDialog dialog) {
 
         this.dialog = dialog;
@@ -38,47 +35,18 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
         jDateChooser1.setLocale(Locale.of("es", "ES"));
         addListeners();
 
-    
         jDateChooser1 = new JDateChooser();
-        
-        // Agregar los componentes al panel
+
         add(jDateChooser1);
         }
 
-
     private void addListeners() {
-        // Listener para cuando cambia el tipo de membresía
-        TipoDeMembersia.addActionListener(e -> updateEndDate());
-        
-        /*TipoDeMembersia.addActionListener(e -> {
-            System.out.println("Tipo de membresía cambiado: " + TipoDeMembersia.getSelectedItem());
-            updateEndDate();
-        });*/
-
-        
-        /*jDateChooser1.addPropertyChangeListener("date", evt -> {
-    Date selectedDate = (Date) evt.getNewValue();
-    if (selectedDate != null) {
-        // Forzar el ajuste de la fecha
-        jDateChooser1.setDate(selectedDate);
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = sdf.format(selectedDate);
-        System.out.println("Fecha seleccionada en formato yyyy-MM-dd: " + formattedDate);
-
-        // Actualiza el campo "Fin de membresía"
-        FinMembersía.setText(formattedDate);
-    } else {
-        System.out.println("La fecha seleccionada es null.");
-    }
-    updateEndDate();
-    }
-        );*/
+    TipoDeMembersia.addActionListener(e -> updateEndDate());
         
     jDateChooser1.addPropertyChangeListener("date", evt -> {
             Date selectedDate = (Date) evt.getNewValue();
             if (selectedDate != null) {
-                jDateChooser1.setDate(selectedDate); // Forzar el ajuste de la fecha
+                jDateChooser1.setDate(selectedDate); 
                 updateEndDate();
             }
         }); 
@@ -92,43 +60,38 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(startDate);
 
-            // Obtener el tipo de membresía seleccionado
             String membershipType = (String) TipoDeMembersia.getSelectedItem();
             switch (membershipType) {
                 case "Mensual":
-                    calendar.add(Calendar.MONTH, 1); // Añade 1 mes
+                    calendar.add(Calendar.MONTH, 1); 
                     break;
                 case "Trimestral":
-                    calendar.add(Calendar.MONTH, 3); // Añade 3 meses
+                    calendar.add(Calendar.MONTH, 3); 
                     break;
                 case "Semestral":
-                    calendar.add(Calendar.MONTH, 6); // Añade 6 meses
+                    calendar.add(Calendar.MONTH, 6); 
                     break;
                 case "Anual":
-                    calendar.add(Calendar.YEAR, 1); // Añade 1 año
+                    calendar.add(Calendar.YEAR, 1); 
                     break;
             }
-
-            // Formatea la fecha de fin y la muestra en el campo FinMembersía
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
         FechaFinal.setText(sdf.format(calendar.getTime()));
         }
     }
     
     private void registrarCliente() {
-        // Obtener datos del formulario
         String dni = escribirDNI.getText();
-        if (!dni.matches("\\d{8}")) { // Verifica si el DNI contiene exactamente 8 dígitos
+        if (!dni.matches("\\d{8}")) {
             JOptionPane.showMessageDialog(this, "El DNI debe contener exactamente 8 números.", "DNI Inválido", JOptionPane.ERROR_MESSAGE);
-            escribirDNI.setText(""); // Limpiar el campo de DNI
-            return; // Detener la ejecución si el DNI es inválido
+            escribirDNI.setText("");
+            return;
         }
         String nombres = escribirNombre.getText();
         String apellidos = escribirApellido.getText();
         Date inicioMembresia = jDateChooser1.getDate();
         String tipoMembresia = (String) TipoDeMembersia.getSelectedItem();
-        
-        // Obtener la fecha de fin de membresía desde el JLabel
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
         Date finMembresia = null;
         try {
@@ -136,31 +99,21 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
         } catch (ParseException ex) {
             System.out.println("Error al parsear la fecha de fin: " + ex.getMessage());
         }
-        
-        // Crear un nuevo cliente y añadirlo a la lista enlazada
+
         Cliente nuevoCliente = new Cliente(dni, nombres, apellidos, inicioMembresia, finMembresia, tipoMembresia);
         listaClientes.agregarCliente(nuevoCliente);
         
         usuarioAgregado = true;
-        // También cierra el diálogo después de añadir
         dialog.dispose();
-        // Imprimir en consola todos los clientes de la lista
         imprimirListaClientes();
         JOptionPane.showMessageDialog(this, "El cliente se añadió correctamente.", "Se agregó correctamente", JOptionPane.INFORMATION_MESSAGE );
     }
 
     private void imprimirListaClientes() {
         System.out.println("Lista de Clientes:");
-        listaClientes.imprimirClientes(); // Método en la clase ListaClientes que imprime todos los clientes
+        listaClientes.imprimirClientes();
     }
-    
-    
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

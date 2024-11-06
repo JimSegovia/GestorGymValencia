@@ -22,16 +22,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author JimXL
- */
 public class UsuariosVista extends javax.swing.JPanel {
     private List<Object[]> todosClientes = new ArrayList<>();
     
     public UsuariosVista() {
         initComponents();
-        // Llama al método para cargar los datos desde el archivo
         cargarClientesDesdeArchivo();
 
         BotonAñadirUsuarios.setContentAreaFilled(false);
@@ -68,6 +63,7 @@ public class UsuariosVista extends javax.swing.JPanel {
         BotonUsuarios = new javax.swing.JButton();
         BotonTrabajadores = new javax.swing.JButton();
         BotonInicio = new javax.swing.JButton();
+        BotonInventario = new javax.swing.JButton();
         lblUsuarios = new javax.swing.JLabel();
         BotonAñadirUsuarios = new javax.swing.JButton();
         Buscador = new javax.swing.JTextField();
@@ -100,6 +96,11 @@ public class UsuariosVista extends javax.swing.JPanel {
         BotonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Users.png"))); // NOI18N
         BotonUsuarios.setText("Usuarios");
         BotonUsuarios.setFocusPainted(false);
+        BotonUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonUsuariosActionPerformed(evt);
+            }
+        });
 
         BotonTrabajadores.setBackground(new java.awt.Color(49, 64, 81));
         BotonTrabajadores.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -107,6 +108,11 @@ public class UsuariosVista extends javax.swing.JPanel {
         BotonTrabajadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Workers.png"))); // NOI18N
         BotonTrabajadores.setText("Trabajadores");
         BotonTrabajadores.setFocusPainted(false);
+        BotonTrabajadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonTrabajadoresActionPerformed(evt);
+            }
+        });
 
         BotonInicio.setBackground(new java.awt.Color(49, 64, 81));
         BotonInicio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -114,6 +120,18 @@ public class UsuariosVista extends javax.swing.JPanel {
         BotonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Home.png"))); // NOI18N
         BotonInicio.setText("Inicio");
         BotonInicio.setFocusPainted(false);
+
+        BotonInventario.setBackground(new java.awt.Color(49, 64, 81));
+        BotonInventario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BotonInventario.setForeground(new java.awt.Color(255, 255, 255));
+        BotonInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Workers.png"))); // NOI18N
+        BotonInventario.setText("Inventario");
+        BotonInventario.setFocusPainted(false);
+        BotonInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonInventarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,6 +144,7 @@ public class UsuariosVista extends javax.swing.JPanel {
             .addComponent(BotonUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BotonTrabajadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BotonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BotonInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(BotonAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
         );
@@ -140,6 +159,8 @@ public class UsuariosVista extends javax.swing.JPanel {
                 .addComponent(BotonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BotonTrabajadores, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotonInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -301,7 +322,7 @@ public class UsuariosVista extends javax.swing.JPanel {
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
         Date fechaActual = new Date();
-        todosClientes.clear(); // Limpiar la lista de todos los clientes
+        todosClientes.clear(); 
         
         try (BufferedReader br = new BufferedReader(new FileReader(archivoClientes))) {
             String linea;
@@ -322,16 +343,13 @@ public class UsuariosVista extends javax.swing.JPanel {
                                              sdf.format(finMembresia), 
                                              tipoMembresia, estado};
 
-                todosClientes.add(fila); // Guardar en la lista completa
+                todosClientes.add(fila); 
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
-        // Llamar a filtrarClientes para mostrar todos inicialmente
         filtrarClientes();
 
-    // Configuración de alineación de celdas centrada
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
     centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 
@@ -346,9 +364,8 @@ public class UsuariosVista extends javax.swing.JPanel {
     private void filtrarClientes() {
         String textoBusqueda = Buscador.getText().trim().toLowerCase();
         DefaultTableModel model = (DefaultTableModel) TablaClientes.getModel();
-        model.setRowCount(0); // Limpiar la tabla
-
-        // Separar filas activas e inactivas después del filtrado
+        model.setRowCount(0); 
+        
         List<Object[]> filasActivas = new ArrayList<>();
         List<Object[]> filasInactivas = new ArrayList<>();
 
@@ -362,8 +379,7 @@ public class UsuariosVista extends javax.swing.JPanel {
                 }
             }
         }
-
-        // Agregar filas activas y luego inactivas a la tabla
+        
         for (Object[] fila : filasActivas) {
             model.addRow(fila);
         }
@@ -400,8 +416,7 @@ public class UsuariosVista extends javax.swing.JPanel {
     dialog.setSize(500, 400);
     dialog.setResizable(false);
     dialog.setLocationRelativeTo(this);
-
-    // Pasa la referencia del diálogo al constructor de AñadirUsuariosMenu
+    
     AñadirUsuariosMenu añadirUsuariosMenu = new AñadirUsuariosMenu(dialog);
     dialog.setContentPane(añadirUsuariosMenu);
     
@@ -413,7 +428,7 @@ public class UsuariosVista extends javax.swing.JPanel {
     }//GEN-LAST:event_BotonAñadirUsuariosActionPerformed
 
     private void BuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscadorActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_BuscadorActionPerformed
 
     private void BotonRenovarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRenovarUsuariosActionPerformed
@@ -424,7 +439,6 @@ public class UsuariosVista extends javax.swing.JPanel {
     dialog.setResizable(false);
     dialog.setLocationRelativeTo(this);
 
-    // Pasa la referencia del diálogo al constructor de AñadirUsuariosMenu
     RenovarUsuariosMenu renovarUsuariosMenu = new RenovarUsuariosMenu(dialog);
     dialog.setContentPane(renovarUsuariosMenu);
     
@@ -439,11 +453,24 @@ public class UsuariosVista extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonAsistenciaActionPerformed
 
+    private void BotonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonUsuariosActionPerformed
+
+    private void BotonTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTrabajadoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonTrabajadoresActionPerformed
+
+    private void BotonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInventarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonInventarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton BotonAsistencia;
     public javax.swing.JButton BotonAñadirUsuarios;
     public javax.swing.JButton BotonInicio;
+    public javax.swing.JButton BotonInventario;
     public javax.swing.JButton BotonRenovarUsuarios;
     public javax.swing.JButton BotonTrabajadores;
     public javax.swing.JButton BotonUsuarios;

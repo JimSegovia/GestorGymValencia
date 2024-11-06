@@ -27,6 +27,9 @@ public class PnlAsistenciaControlador {
         vista.BotonTrabajadores.addActionListener((e) -> {
 			irATrabajadores();
 		});
+        vista.BotonInventario.addActionListener((e) -> {
+			irAInventario();
+		});
     }
 
     public void mostrar() {
@@ -54,5 +57,8 @@ public class PnlAsistenciaControlador {
     
     private void irATrabajadores() {
     frameControlador.getTrabajadoresControlador().mostrar();
+    }
+    private void irAInventario() {
+    frameControlador.getInventarioControlador().mostrar();
     }
 }

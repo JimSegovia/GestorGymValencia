@@ -1,15 +1,15 @@
 package Controlador;
 
-import Vista.TrabajadoresVista;
+import Vista.InventarioVista;
 
-public class PnlTrabajadoresControlador {
+public class PnlInventarioControlador {
 
     private final FrameControlador frameControlador;
-    private final TrabajadoresVista vista;
+    private final InventarioVista vista;
 
-    public PnlTrabajadoresControlador(FrameControlador frameControlador) {
+    public PnlInventarioControlador(FrameControlador frameControlador) {
         this.frameControlador = frameControlador;
-        this.vista = new TrabajadoresVista();
+        this.vista = new InventarioVista();
                 
         setEvents();
     }
@@ -39,7 +39,7 @@ public class PnlTrabajadoresControlador {
         frameControlador.getFrameVista().pnlContenido.repaint();
     }
 
-    public TrabajadoresVista getVista() {
+    public InventarioVista getVista() {
         return vista;
     }
     
