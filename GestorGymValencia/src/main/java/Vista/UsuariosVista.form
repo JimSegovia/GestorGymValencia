@@ -33,7 +33,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="BotonAñadirUsuarios" min="-2" pref="143" max="-2" attributes="0"/>
-                              <EmptySpace pref="112" max="32767" attributes="0"/>
+                              <EmptySpace pref="34" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Buscador" min="-2" pref="414" max="-2" attributes="0"/>
@@ -236,7 +236,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="BUSCAR USUARIO"/>
+        <Property name="text" type="java.lang.String" value="BUSCAR USUARIO POR NOMBRE"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -246,20 +246,29 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="TablaClientes">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="40">
+              <Table columnCount="7" rowCount="42">
                 <Column editable="false" title="DNI" type="java.lang.String"/>
                 <Column editable="false" title="Nombres" type="java.lang.String"/>
                 <Column editable="false" title="Apellidos" type="java.lang.String"/>
-                <Column editable="false" title="Inicio de Members&#xed;a" type="java.lang.String"/>
-                <Column editable="false" title="Fin de members&#xed;a" type="java.lang.String"/>
+                <Column editable="false" title="Inicio" type="java.lang.String"/>
+                <Column editable="false" title="Fin" type="java.lang.String"/>
+                <Column editable="false" title="Tipo" type="java.lang.String"/>
                 <Column editable="false" title="Estado" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
@@ -297,6 +306,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

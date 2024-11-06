@@ -4,9 +4,18 @@
  */
 package Vista;
 
+import Modelo.ListaClientes;
+import Modelo.Cliente;    
+
 import javax.swing.JDialog;
 import java.util.Locale;
 
+import com.toedter.calendar.JDateChooser;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 /**
  *
  * @author JimXL
@@ -14,16 +23,139 @@ import java.util.Locale;
 public class AñadirUsuariosMenu extends javax.swing.JPanel {
 
     private final JDialog dialog; // Variable para almacenar la referencia al diálogo
+    private ListaClientes listaClientes;
+    private boolean usuarioAgregado = false;
 
+    public boolean seAgregoNuevoUsuario() {
+        return usuarioAgregado;
+}
     // Modificar el constructor para recibir el JDialog contenedor
     public AñadirUsuariosMenu(JDialog dialog) {
 
         this.dialog = dialog;
-        // Asigna el diálogo a la variable
-        initComponents();    
-    
-    jDateChooser1.setLocale(new Locale("es", "ES"));}
+        this.listaClientes = new ListaClientes();
+        initComponents(); 
+        jDateChooser1.setLocale(Locale.of("es", "ES"));
+        addListeners();
 
+    
+        jDateChooser1 = new JDateChooser();
+        
+        // Agregar los componentes al panel
+        add(jDateChooser1);
+        }
+
+
+    private void addListeners() {
+        // Listener para cuando cambia el tipo de membresía
+        TipoDeMembersia.addActionListener(e -> updateEndDate());
+        
+        /*TipoDeMembersia.addActionListener(e -> {
+            System.out.println("Tipo de membresía cambiado: " + TipoDeMembersia.getSelectedItem());
+            updateEndDate();
+        });*/
+
+        
+        /*jDateChooser1.addPropertyChangeListener("date", evt -> {
+    Date selectedDate = (Date) evt.getNewValue();
+    if (selectedDate != null) {
+        // Forzar el ajuste de la fecha
+        jDateChooser1.setDate(selectedDate);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(selectedDate);
+        System.out.println("Fecha seleccionada en formato yyyy-MM-dd: " + formattedDate);
+
+        // Actualiza el campo "Fin de membresía"
+        FinMembersía.setText(formattedDate);
+    } else {
+        System.out.println("La fecha seleccionada es null.");
+    }
+    updateEndDate();
+    }
+        );*/
+        
+    jDateChooser1.addPropertyChangeListener("date", evt -> {
+            Date selectedDate = (Date) evt.getNewValue();
+            if (selectedDate != null) {
+                jDateChooser1.setDate(selectedDate); // Forzar el ajuste de la fecha
+                updateEndDate();
+            }
+        }); 
+    
+    Añadir.addActionListener(e -> registrarCliente());
+ 
+    }
+    private void updateEndDate() {
+        Date startDate = jDateChooser1.getDate();
+        if (startDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+
+            // Obtener el tipo de membresía seleccionado
+            String membershipType = (String) TipoDeMembersia.getSelectedItem();
+            switch (membershipType) {
+                case "Mensual":
+                    calendar.add(Calendar.MONTH, 1); // Añade 1 mes
+                    break;
+                case "Trimestral":
+                    calendar.add(Calendar.MONTH, 3); // Añade 3 meses
+                    break;
+                case "Semestral":
+                    calendar.add(Calendar.MONTH, 6); // Añade 6 meses
+                    break;
+                case "Anual":
+                    calendar.add(Calendar.YEAR, 1); // Añade 1 año
+                    break;
+            }
+
+            // Formatea la fecha de fin y la muestra en el campo FinMembersía
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
+        FechaFinal.setText(sdf.format(calendar.getTime()));
+        }
+    }
+    
+    private void registrarCliente() {
+        // Obtener datos del formulario
+        String dni = escribirDNI.getText();
+        if (!dni.matches("\\d{8}")) { // Verifica si el DNI contiene exactamente 8 dígitos
+            JOptionPane.showMessageDialog(this, "El DNI debe contener exactamente 8 números.", "DNI Inválido", JOptionPane.ERROR_MESSAGE);
+            escribirDNI.setText(""); // Limpiar el campo de DNI
+            return; // Detener la ejecución si el DNI es inválido
+        }
+        String nombres = escribirNombre.getText();
+        String apellidos = escribirApellido.getText();
+        Date inicioMembresia = jDateChooser1.getDate();
+        String tipoMembresia = (String) TipoDeMembersia.getSelectedItem();
+        
+        // Obtener la fecha de fin de membresía desde el JLabel
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.forLanguageTag("es-ES"));
+        Date finMembresia = null;
+        try {
+            finMembresia = sdf.parse(FechaFinal.getText());
+        } catch (ParseException ex) {
+            System.out.println("Error al parsear la fecha de fin: " + ex.getMessage());
+        }
+        
+        // Crear un nuevo cliente y añadirlo a la lista enlazada
+        Cliente nuevoCliente = new Cliente(dni, nombres, apellidos, inicioMembresia, finMembresia, tipoMembresia);
+        listaClientes.agregarCliente(nuevoCliente);
+        
+        usuarioAgregado = true;
+        // También cierra el diálogo después de añadir
+        dialog.dispose();
+        // Imprimir en consola todos los clientes de la lista
+        imprimirListaClientes();
+        JOptionPane.showMessageDialog(this, "El cliente se añadió correctamente.", "Se agregó correctamente", JOptionPane.INFORMATION_MESSAGE );
+    }
+
+    private void imprimirListaClientes() {
+        System.out.println("Lista de Clientes:");
+        listaClientes.imprimirClientes(); // Método en la clase ListaClientes que imprime todos los clientes
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,20 +167,19 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         lblUsuarios = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        escribirDNI = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        escribirNombre = new javax.swing.JTextField();
+        escribirApellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         Añadir = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         TipoDeMembersia = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        FechaFinal = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("DNI");
@@ -56,9 +187,9 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
         lblUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblUsuarios.setText("Agregar Miembro");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        escribirDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                escribirDNIActionPerformed(evt);
             }
         });
 
@@ -96,8 +227,7 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
             }
         });
 
-        jTextPane1.setEditable(false);
-        jScrollPane1.setViewportView(jTextPane1);
+        FechaFinal.setText("----");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,7 +241,7 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
@@ -119,8 +249,9 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(TipoDeMembersia, javax.swing.GroupLayout.Alignment.LEADING, 0, 112, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(FechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(185, 185, 185))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,15 +261,15 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField3))
+                                        .addComponent(escribirApellido))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
                                             .addComponent(jLabel2))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                                            .addComponent(jTextField2))))))))
+                                            .addComponent(escribirDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                                            .addComponent(escribirNombre))))))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -149,15 +280,15 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(escribirDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(escribirNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(escribirApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -167,10 +298,10 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(TipoDeMembersia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(FechaFinal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Añadir)
                     .addComponent(cancelar))
@@ -178,9 +309,9 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void escribirDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escribirDNIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_escribirDNIActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
     if (dialog != null) { // Verifica que el diálogo no sea nulo
@@ -195,8 +326,12 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Añadir;
-    private javax.swing.JComboBox<String> TipoDeMembersia;
+    public javax.swing.JLabel FechaFinal;
+    public javax.swing.JComboBox<String> TipoDeMembersia;
     public javax.swing.JButton cancelar;
+    public javax.swing.JTextField escribirApellido;
+    public javax.swing.JTextField escribirDNI;
+    public javax.swing.JTextField escribirNombre;
     public com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -204,11 +339,6 @@ public class AñadirUsuariosMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblUsuarios;
     // End of variables declaration//GEN-END:variables
 }

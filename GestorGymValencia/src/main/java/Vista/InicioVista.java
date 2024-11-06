@@ -36,7 +36,6 @@ public class InicioVista extends javax.swing.JPanel {
         BotonUsuarios = new javax.swing.JButton();
         BotonTrabajadores = new javax.swing.JButton();
         BotonInicio = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1140, 640));
 
@@ -115,25 +114,17 @@ public class InicioVista extends javax.swing.JPanel {
                     .addContainerGap(333, Short.MAX_VALUE)))
         );
 
-        jLabel2.setText("pta que team de mrd");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214)
-                .addComponent(jLabel2)
-                .addContainerGap(513, Short.MAX_VALUE))
+                .addContainerGap(838, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,7 +143,6 @@ public class InicioVista extends javax.swing.JPanel {
     public javax.swing.JButton BotonTrabajadores;
     public javax.swing.JButton BotonUsuarios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
