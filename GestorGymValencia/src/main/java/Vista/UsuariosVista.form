@@ -35,9 +35,9 @@
                               <Component id="BotonAñadirUsuarios" min="-2" pref="143" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="BotonRenovarUsuarios" min="-2" pref="166" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="Buscador" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" pref="783" max="32767" attributes="0"/>
@@ -275,7 +275,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="BUSCAR USUARIO POR NOMBRE"/>
+        <Property name="text" type="java.lang.String" value="BUSCAR USUARIO POR DNI"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

@@ -186,7 +186,7 @@ public class UsuariosVista extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("BUSCAR USUARIO POR NOMBRE");
+        jLabel2.setText("BUSCAR USUARIO POR DNI");
 
         TablaClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TablaClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -291,9 +291,9 @@ public class UsuariosVista extends javax.swing.JPanel {
                                 .addComponent(BotonAñadirUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BotonRenovarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(24, 24, 24)
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Buscador))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE))
                         .addGap(37, 37, 37))))
@@ -370,8 +370,8 @@ public class UsuariosVista extends javax.swing.JPanel {
         List<Object[]> filasInactivas = new ArrayList<>();
 
         for (Object[] fila : todosClientes) {
-            String nombre = ((String) fila[1]).toLowerCase();
-            if (nombre.startsWith(textoBusqueda)) {
+            String dni = ((String) fila[0]).toLowerCase();
+            if (dni.startsWith(textoBusqueda)) {
                 if ("Activo".equals(fila[6])) {
                     filasActivas.add(fila);
                 } else {
