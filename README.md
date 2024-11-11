@@ -11,25 +11,25 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 ## Instrucciones de Instalación en Windows
 
-1. Clona el repositorio en tu máquina local. Abre una terminal y ejecuta el siguiente comando:
+### Clona el repositorio en tu máquina local. Abre una terminal y ejecuta el siguiente comando:
 
   ```bash
    git clone https://github.com/JimSegovia/GestorGymValencia.git
    ```
 
-2. Accede al directorio del proyecto:
+### Accede al directorio del proyecto:
 
   ```bash
    cd GestorGymValencia
    ```
 
-2. Compila el proyecto usando Maven para descargar las dependencias necesarias y construir el proyecto:
+### Compila el proyecto usando Maven para descargar las dependencias necesarias y construir el proyecto:
 
   ```bash
    mvn clean install
    ```
 
-4. Ejecución del proyecto:
+### Ejecución del proyecto:
 
   ```bash
    mvn exec:java -Dexec.mainClass="tempRunner.App"
