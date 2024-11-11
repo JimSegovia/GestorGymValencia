@@ -1,0 +1,15 @@
+MAN-001,Mancuerna 15kg,Mancuerna,En Mantenimiento
+CAM-002,Caminadora ProFit,Máquina,En Mantenimiento
+DIS-003,Disco 10kg,Disco,Activo
+BAN-004,Banco Inclinado,Máquina,Activo
+MAN-005,Mancuerna 20kg,Mancuerna,En Desuso
+DIS-006,Disco 5kg,Disco,Activo
+CAM-007,Elíptica Avanzada,Máquina,Activo
+MAN-008,Mancuerna 5kg,Mancuerna,Activo
+DIS-009,Disco 15kg,Disco,En Mantenimiento
+CAM-010,Bicicleta Estática,Máquina,Activo
+MAN-011,Mancuerna 10kg,Mancuerna,En Desuso
+DIS-012,Disco 2.5kg,Disco,Activo
+CAM-013,Remadora Pro,Máquina,En Mantenimiento
+BAN-014,Banco Declinado,Máquina,Activo
+MAN-015,Mancuerna 25kg,Mancuerna,Activo

@@ -1,0 +1,38 @@
+72189012,Ivan Joaquin,Nuñez Cardenas,05 nov 2024,05 nov 2025,Anual
+76739775,Joshua Nicolas,Chavez Cerna,05 nov 2024,05 feb 2025,Trimestral
+71212195,Jim Bryan,Segovia Valencia,05 nov 2024,05 dic 2024,Mensual
+79292334,Maria Beatriz,Gonzalez Perez,06 nov 2024,06 nov 2025,Anual
+78405358,Carmen Sofia,Sanchez Rodriguez,15 jul 2024,13 oct 2024,Trimestral
+72903421,Lucia Alejandra,Diaz Rodriguez,08 abr 2024,08 abr 2025,Anual
+72489720,Carmen Andres,Garcia Morales,30 mar 2023,28 jun 2023,Trimestral
+72028515,Lucia Beatriz,Gonzalez Martinez,22 jun 2024,19 dic 2024,Semestral
+75062805,Lucia Sofia,Lopez Gonzalez,22 ago 2024,21 sept 2024,Mensual
+76424418,Maria Beatriz,Gonzalez Diaz,14 sept 2023,14 oct 2023,Mensual
+77619891,Carmen Joaquin,Perez Diaz,21 sept 2024,20 dic 2024,Trimestral
+76631450,Miguel Andres,Perez Diaz,18 feb 2023,19 may 2023,Trimestral
+72128392,Carmen Alejandra,Lopez Diaz,17 dic 2024,17 mar 2025,Trimestral
+71341735,Lucia Joaquin,Gonzalez Rodriguez,24 mar 2024,23 abr 2024,Mensual
+73560257,Ana Joaquin,Diaz Perez,23 ago 2024,22 sept 2024,Mensual
+76284046,Luis Nicolas,Diaz Diaz,21 ene 2023,21 ene 2024,Anual
+71495693,Ana Beatriz,Lopez Morales,30 ago 2023,29 ago 2024,Anual
+72522412,Luis Sofia,Garcia Diaz,12 oct 2023,11 oct 2024,Anual
+77539188,Maria Nicolas,Perez Rodriguez,26 mar 2023,24 jun 2023,Trimestral
+76966097,Ana Sofia,Garcia Fernandez,11 nov 2024,10 may 2025,Semestral
+73885384,Miguel Carlos,Martinez Garcia,08 ene 2023,07 feb 2023,Mensual
+76674833,Rosa Beatriz,Perez Perez,21 nov 2024,20 may 2025,Semestral
+73589095,Jose Guillermo,Sanchez Sanchez,01 ago 2023,28 ene 2024,Semestral
+78004081,Jose Andres,Perez Diaz,09 sept 2023,08 sept 2024,Anual
+79290712,Juan Beatriz,Martinez Garcia,22 jul 2024,20 oct 2024,Trimestral
+73659667,Luis Andres,Lopez Garcia,04 oct 2024,03 nov 2024,Mensual
+71631999,Lucia Joaquin,Lopez Perez,17 oct 2024,15 abr 2025,Semestral
+71688201,Lucia Alejandra,Gonzalez Gonzalez,09 dic 2024,09 dic 2025,Anual
+72572684,Carmen Alejandra,Perez Perez,24 nov 2024,24 nov 2025,Anual
+75446967,Juan Andres,Rodriguez Fernandez,02 mar 2024,02 mar 2025,Anual
+71199390,Luis Beatriz,Diaz Rodriguez,11 may 2024,09 ago 2024,Trimestral
+77714321,Maria Alejandra,Martinez Gonzalez,06 nov 2024,06 feb 2025,Trimestral
+75850790,Luis Alejandra,Gonzalez Rodriguez,25 oct 2023,22 abr 2024,Semestral
+74839698,Diego Steven Martin,Espinoza Picón,05 nov 2024,05 nov 2025,Anual
+75280457,SebastianJoaquin,Chicata Serrato,01 nov 2024,01 may 2025,Semestral
+14141414,Prueba1,nose,05 nov 2024,05 feb 2025,Trimestral
+15151515,prueba5,hola,05 nov 2024,05 nov 2025,Anual
+12121212,Ivan,Suarez Cardenas,06 nov 2024,06 feb 2025,Trimestral

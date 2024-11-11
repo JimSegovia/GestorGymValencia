@@ -1,30 +1,43 @@
 package Modelo;
 
-public class Cliente extends Persona{
-    private int ID_Cliente;
-    private Carnet carnet;
+import java.util.Date;
+
+public class Cliente extends Persona {
+    private Date inicioMembresia;
+    private Date finMembresia;
+    private String tipoMembresia;
     
-    Cliente(String nombres, String apellidos, String DNI, int ID_Cliente, Carnet carnet){
-        super(nombres, apellidos, DNI);
-        this.ID_Cliente = ID_Cliente;
-        this.carnet = carnet;
+    public Cliente(String DNI, String nombres, String apellidos, Date inicioMembresia, Date finMembresia, String tipoMembresia) {
+        super(DNI, nombres, apellidos);
+        this.inicioMembresia = inicioMembresia;
+        this.finMembresia = finMembresia;
+        this.tipoMembresia = tipoMembresia;
     }
 
-    public int getID_Cliente() {
-        return ID_Cliente;
+    public Date getInicioMembresia() {
+        return inicioMembresia;
     }
 
-    public void setID_Cliente(int ID_Cliente) {
-        this.ID_Cliente = ID_Cliente;
+    public void setInicioMembresia(Date inicioMembresia) {
+        this.inicioMembresia = inicioMembresia;
     }
 
-    public Carnet getCarnet() {
-        return carnet;
+    public Date getFinMembresia() {
+        return finMembresia;
     }
 
-    public void setCarnet(Carnet carnet) {
-        this.carnet = carnet;
+    public void setFinMembresia(Date finMembresia) {
+        this.finMembresia = finMembresia;
+    }
+
+    public String getTipoMembresia() {
+        return tipoMembresia;
+    }
+
+    public void setTipoMembresia(String tipoMembresia) {
+        this.tipoMembresia = tipoMembresia;
     }
     
-    public void crearCarnet(){}
+    
 }
+

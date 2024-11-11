@@ -7,8 +7,7 @@ public class ListaEmpleados {
     public class Nodo{
         public Empleado empleado;
         public Nodo siguiente = null;
-        
-        // Constructor
+
         public Nodo(Empleado empleado){
             this.empleado = empleado;
         }
