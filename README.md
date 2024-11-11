@@ -13,7 +13,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 1. Clona el repositorio en tu máquina local. Abre una terminal y ejecuta el siguiente comando:
 
-   ```bash
+  ```bash
    git clone https://github.com/JimSegovia/GestorGymValencia.git
    ```
 
